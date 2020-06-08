@@ -27,75 +27,60 @@ while(True):
 
     command = str(input(">")).lower()
 
-    if(command[0:3] == "set"):
+    try:
+        if(command[0:3] == "set"):
 
-        if(command[4:9] == "speed"):
-            try:
+            if(command[4:9] == "speed"):
                 speed = abs(float(command[10:]))
-            except:
-                print("invalid option")
 
-        elif(command[4:11] == "degrees"):
-            try:
+            elif(command[4:11] == "degrees"):
                 if ((abs(float(command[12:])) <= 180) and (abs(float(command[12:])) >= 0)):
                     degrees = degrees = abs(float(command[12:]))
                 else:
                     print("invalid option")
-            except:
-                print("invalid option")
 
-        elif(command[4:13] == "viscosity"):
-            try:
+            elif(command[4:13] == "viscosity"):
                 viscosity = abs(float(command[14:]))
-            except:
-                print("invalid option")
 
-        elif(command[4:11] == "gravity"):
-            try:
+            elif(command[4:11] == "gravity"):
                 gravity = abs(float(command[12:]))
-            except:
+
+            else:
                 print("invalid option")
+        
+        elif(command[0:6] == "forces"):
+            i = 0
+            for force in forces:
+                print(str(i) + ". F = (" , force[0] ,",", force[1] , ")")
+                i += 1
+        
+        elif(command[0:8] == "addforce"):
+            space = 0
+            command_space = 9
+            error = 1
 
-        else:
-            print("invalid option")
-    
-    elif(command[0:6] == "forces"):
-        i = 0
-        for force in forces:
-            print(str(i) + ". F = (" , force[0] ,",", force[1] , ")")
-            i += 1
-    
-    elif(command[0:8] == "addforce"):
-        space = 0
-        command_space = 9
-        error = 1
-
-        for word in command[9:]:
-            if(word == " "):
-                try:
+            for word in command[9:]:
+                if(word == " "):
                     forces.append([float(command[9:command_space]),float(command[command_space+1:])])
                     error = 0
                     break
-                except:
-                    print("invalid option")
-                    error = 0
-                    break
 
-            else:
-                command_space += 1
+                else:
+                    command_space += 1
+            
+            if(error == 1):
+                print("invalid option")
         
-        if(error == 1):
-            print("invalid option")
-    
-    elif(command[0:11] == "removeforce"):
-        try:
-            forces.pop(int(command[12:]))
-        except:
-            print("invalid option")
-    
-    elif(command == "quit"):
-        break
+        elif(command[0:11] == "removeforce"):
+            forces.pop(int(command[12:]+1))
+            
+        
+        elif(command == "quit"):
+            break
 
-    else:
+        else:
+            print("invalid option")
+
+    except:
         print("invalid option")
 
