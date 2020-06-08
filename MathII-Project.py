@@ -9,6 +9,7 @@ degrees = 30.0
 speed = 30.0
 viscosity = 1.0
 gravity = 9.81
+mass = 10.0
 forces = [[100.0, 20.0]]
 
 def map_generator():
@@ -22,7 +23,8 @@ while(True):
             exit()
 
     print("Firing at", degrees, "degrees, at", speed,
-        "m/s.\nViscosity is "+ str(viscosity) +", gravity is " + str(gravity) +" .")
+        "m/s.\nViscosity is "+ str(viscosity) +", gravity is " + str(gravity) +
+        ".\nThe mass of the object is " + str(mass))
     #Meter aqui funçao que faz que o mapa se actualize
 
     command = str(input(">")).lower()
@@ -44,6 +46,9 @@ while(True):
 
             elif(command[4:11] == "gravity"):
                 gravity = abs(float(command[12:]))
+
+            elif(command[4:8] == "mass"):
+                mass = abs(float(command[8:]))
 
             else:
                 print("invalid option")
