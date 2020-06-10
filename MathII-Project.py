@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 pygame.mixer.init()
@@ -7,10 +8,17 @@ screen.fill((0, 0, 0))
 
 degrees = 30.0
 speed = 30.0
+speedX = 0
+speedY = 0
 viscosity = 1.0
 gravity = 9.81
 mass = 10.0
 forces = [[100.0, 20.0]]
+timestep = 0.02
+accelX = []
+accelY = []
+Px = 0
+Py = 0
 
 def map_generator():
     return
@@ -26,6 +34,28 @@ while(True):
         "m/s.\nViscosity is "+ str(viscosity) +", gravity is " + str(gravity) +
         ".\nThe mass of the object is " + str(mass))
     #Meter aqui funçao que faz que o mapa se actualize
+    speedX = speed * math.cos(degrees)
+    speedY = speed * math.sin(degrees)
+    for i in range(len(forces)):
+        accelX[i] = forces[0][i] / mass
+        accelY[i] = forces[1][i] / mass
+    while(Py >= 0):
+        #Perguntar ao stor se as forças são constantes(provavelmente) ou de impulso
+        Px = Px + speedX * timestep + 0.5*(-viscosity * speedX + accelX) * (timestep**2)
+        Py = Py + speedY * timestep + 0.5*(-gravity - viscosity * speedY + accelY) * (timestep**2)
+        # massa afeta acelaração do cociente de viscosidade? Tenho quase a certeza que não pq é uma força de resposta à velocidade
+        # e se houver massa envolvida também esta do lado a que desacelera mas melhor verificar
+        speedX = speedX + 0.5*(-viscosity * speedX) * timestep
+        speedY = speedY + 0.5*(-gravity - viscosity * speedY) * timestep
+
+        if (Py >= 0):
+            #mostra função
+            pygame.draw.circle(screen, (255,255,255), (Px,Py), 0.1, 0)
+        if (Py < 0):
+            pygame.draw.circle(screen, (255,0,0), (Px,Py), 0.1, 0)
+        pygame.display.update()
+    Px = 0
+    Py = 0
 
     command = str(input(">")).lower()
 
@@ -77,7 +107,7 @@ while(True):
                 print("invalid option")
         
         elif(command[0:11] == "removeforce"):
-            forces.pop(int(command[12:]+1))
+            forces.pop(int(command[12:] + 1))
             
         
         elif(command == "quit"):
