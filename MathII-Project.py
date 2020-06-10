@@ -45,8 +45,8 @@ while(True):
         Py = Py + speedY * timestep + 0.5*(-gravity - viscosity * speedY + accelY) * (timestep**2)
         # massa afeta acelaração do cociente de viscosidade? Tenho quase a certeza que não pq é uma força de resposta à velocidade
         # e se houver massa envolvida também esta do lado a que desacelera mas melhor verificar
-        speedX = speedX + 0.5*(-viscosity * speedX) * timestep
-        speedY = speedY + 0.5*(-gravity - viscosity * speedY) * timestep
+        speedX = speedX + 0.5*(-viscosity * speedX + accelX) * timestep
+        speedY = speedY + 0.5*(-gravity - viscosity * speedY + accelY) * timestep
 
         if (Py >= 0):
             #mostra função
