@@ -10,7 +10,7 @@ degrees = 30.0
 speed = 30.0
 speedX = 0
 speedY = 0
-viscosity = 0.0
+viscosity = 1.0
 gravity = 9.81
 mass = 10.0
 forces = []
@@ -32,7 +32,8 @@ while(True):
 
     print("Firing at", degrees, "degrees, at", speed,
         "m/s.\nViscosity is "+ str(viscosity) +", gravity is " + str(gravity) +
-        ".\nThe mass of the object is " + str(mass))
+        ".\nThe mass of the object is " + str(mass) + ".")
+
     #Meter aqui funçao que faz que o mapa se actualize
     Px = 30
     Py = 429
@@ -41,7 +42,7 @@ while(True):
     for i in range(len(forces)):
         accelX += forces[i][0] / mass
         accelY += forces[i][1] / mass
-    while(Py <= 430):
+    while((Py <= 430) and (Py > -1000)):
         #Perguntar ao stor se as forças são constantes(provavelmente) ou de impulso
         Px += speedX * timestep + 0.5*(-viscosity * speedX + accelX) * (timestep**2)
         Py += speedY * timestep + 0.5*(gravity - viscosity * speedY - accelY) * (timestep**2)
@@ -109,9 +110,9 @@ while(True):
             
             if(error == 1):
                 print("invalid option")
-        
+
         elif(command[0:11] == "removeforce"):
-            forces.pop(int(command[12:] + 1))
+            forces.pop(int(command[12:]))
             screen.fill((255, 255, 255))
             
         
