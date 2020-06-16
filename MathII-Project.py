@@ -6,18 +6,18 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((640,480))
 screen.fill((255, 255, 255))
 
-degrees = 60.0
-speed = 100.0
+degrees = 45.0
+speed = 50.0
 speedX = 0
 speedY = 0
-viscosity = 0.2
+viscosity = 1
 viscosityType = "laminar"
 gravity = -9.8
 directionX = 0
 directionY = 0
 mass = 10.0
 forces = []
-timestep = 0.02
+timestep = 0.001
 accelX = 0
 accelY = 0
 Px = 0
@@ -59,8 +59,11 @@ while(True):
 
             speedX += (-viscosity * directionX * (speed**2) + accelX) * timestep
             speedY += (-gravity - viscosity * directionY * (speed**2) - accelY) * timestep
+            directionX = speedX / abs(speed)
+            directionY = speedY / abs(speed)
+            speed = math.sqrt((speedX ** 2) + (speedY ** 2))
 
-            pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 1)
+            pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 0.5)
 
     pygame.draw.circle(screen, (255,0,0), (int(Px),int(Py)), 3)
     pygame.display.flip()
