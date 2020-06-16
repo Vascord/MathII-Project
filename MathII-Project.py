@@ -45,11 +45,11 @@ while(True):
         accelY += forces[i][1] / mass
     while((Py <= 430) and (Py > -500)):
         if (viscosityType == "laminar"):
-            Px += speedX * timestep + 0.5*(-viscosity * speedX + accelX) * (timestep**2)
-            Py += speedY * timestep + 0.5*(-gravity - viscosity * speedY - accelY) * (timestep**2)
+            Px += speedX * timestep + 0.5*(-(viscosity * speedX) / mass + accelX) * (timestep**2)
+            Py += speedY * timestep + 0.5*(-gravity - (viscosity * speedY) / mass - accelY) * (timestep**2)
 
-            speedX += (-viscosity * speedX + accelX) * timestep
-            speedY += (-gravity - viscosity * speedY - accelY) * timestep
+            speedX += (-(viscosity * speedX) / mass + accelX) * timestep
+            speedY += (-gravity - (viscosity * speedY) / mass - accelY) * timestep
 
             pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 1)
         elif (viscosityType == "turbulent"):
@@ -57,11 +57,11 @@ while(True):
             directionX = speedX / abs(speed)
             directionY = speedY / abs(speed)
 
-            Px += speedX * timestep + 0.5*(-viscosity * directionX * (current_speed**2) + accelX) * (timestep**2)
-            Py += speedY * timestep + 0.5*(-gravity - viscosity * directionY * (current_speed**2) - accelY) * (timestep**2)
+            Px += speedX * timestep + 0.5*(-(viscosity * directionX * (current_speed**2)) / mass + accelX) * (timestep**2)
+            Py += speedY * timestep + 0.5*(-gravity - (viscosity * directionY * (current_speed**2)) / mass - accelY) * (timestep**2)
 
-            speedX += (-viscosity * directionX * (current_speed**2) + accelX) * timestep
-            speedY += (-gravity - viscosity * directionY * (current_speed**2) - accelY) * timestep
+            speedX += (-(viscosity * directionX * (current_speed**2)) / mass + accelX) * timestep
+            speedY += (-gravity - (viscosity * directionY * (current_speed**2)) / mass - accelY) * timestep
 
             pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 1)
 
