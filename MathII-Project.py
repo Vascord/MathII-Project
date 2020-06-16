@@ -31,7 +31,7 @@ while(True):
             exit()
 
     print("Firing at", degrees, "degrees, at", speed,
-        "m/s.\nViscosity is "+ str(viscosity) +" , type is" + str(viscosityType) + ", gravity is " + str(gravity) +
+        "m/s.\nViscosity is "+ str(viscosity) +" , type is " + str(viscosityType) + ", gravity is " + str(gravity) +
         ".\nThe mass of the object is " + str(mass) + ".")
 
     Px = 30
