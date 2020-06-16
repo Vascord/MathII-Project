@@ -40,6 +40,9 @@ while(True):
     speedX = speed * math.cos(math.radians(degrees))
     speedY = -(speed * math.sin(math.radians(degrees)))
 
+    accelX = 0
+    accelY = 0
+
     for i in range(len(forces)):
         accelX += forces[i][0] / mass
         accelY += forces[i][1] / mass
