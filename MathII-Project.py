@@ -33,7 +33,8 @@ while(True):
 
     print("Firing at", degrees, "degrees, at", speed,
         "m/s.\nViscosity is "+ str(viscosity) +" , type is " + str(viscosityType) + ", gravity is " + str(gravity) +
-        ".\nThe mass of the object is " + str(mass) + ".")
+        ".\nThe mass of the object is " + str(mass) + ".\n")
+    print("You can write help to know the inputs.\n")
 
     Px = 30
     Py = 429
@@ -74,7 +75,20 @@ while(True):
     command = str(input(">")).lower()
 
     try:
-        if(command[0:3] == "set"):
+        if(command[0:4] == "help"):
+            print("To modify a specific value write : set <name of value>")
+            print("speed <number> to modify speed")
+            print("degrees <number between 0 and 180> to modify angle of shoot")
+            print("viscosity <number> to modify viscosity")
+            print("type <turbulent or laminar> to modify type of viscosity")
+            print("mass <number> to modify mass")
+            print("gravity <number> to modify gravity\n")
+            print("To add a force : addforce <x> <y>")
+            print("To remove a force : removeforce <number of the force>")
+            print("Show your forces with: forces\n")
+            print("You can quit the apply with: quit")
+
+        elif(command[0:3] == "set"):
 
             if(command[4:9] == "speed"):
                 speed = abs(float(command[10:]))
