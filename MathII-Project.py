@@ -58,6 +58,9 @@ while(True):
             pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 1)
         elif (viscosityType == "turbulent"):
             current_speed = math.sqrt((speedX ** 2) + (speedY ** 2))
+
+            #A divisão foi corrigida dps do prazo pq ao fazer uma ultima verificação antes de me ir deitar reparei que me esqueci de trocar isto
+            #Peço desculpa pelo atrazo só troquei a speed pela current_speed
             directionX = speedX / abs(current_speed)
             directionY = speedY / abs(current_speed)
 
