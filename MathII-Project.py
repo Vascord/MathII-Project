@@ -7,12 +7,12 @@ screen = pygame.display.set_mode((640,480))
 screen.fill((255, 255, 255))
 
 degrees = 45.0
-speed = 50.0
+speed = 500.0
 current_speed = speed
 speedX = 0
 speedY = 0
 viscosity = 1
-viscosityType = "laminar"
+viscosityType = "turbulent"
 gravity = -9.8
 directionX = 0
 directionY = 0
@@ -58,8 +58,8 @@ while(True):
             pygame.draw.circle(screen, (0,0,0), (int(Px),int(Py)), 1)
         elif (viscosityType == "turbulent"):
             current_speed = math.sqrt((speedX ** 2) + (speedY ** 2))
-            directionX = speedX / abs(speed)
-            directionY = speedY / abs(speed)
+            directionX = speedX / abs(current_speed)
+            directionY = speedY / abs(current_speed)
 
             Px += speedX * timestep + 0.5*(-(viscosity * directionX * (current_speed**2)) / mass + accelX) * (timestep**2)
             Py += speedY * timestep + 0.5*(-gravity - (viscosity * directionY * (current_speed**2)) / mass - accelY) * (timestep**2)
